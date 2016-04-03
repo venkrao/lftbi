@@ -96,8 +96,9 @@ update_goal_chain (struct dep *goals)
        have been run, we give an "up to date" diagnostic.  */
 
     struct dep *g;
-    for (g = goals; g != 0; g = g->next)
+    for (g = goals; g != 0; g = g->next) {
       g->changed = 0;
+    }
   }
 
   /* All files start with the considered bit 0, so the global value is 1.  */
@@ -347,6 +348,7 @@ update_file (struct file *file, unsigned int depth)
 
         for (d = f->deps; d != 0; d = d->next)
           {
+            printf("___veraoks____ ::: Target = %s\n", d->file->name);
             enum update_status new = update_file (d->file, depth + 1);
             if (new > status)
               new = status;

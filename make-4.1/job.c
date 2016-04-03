@@ -1335,6 +1335,10 @@ start_job_command (struct child *child)
      guaranteedly indicate that a command was started for the dependency
      chain (i.e., update_file recursion chain) we are processing.  */
 
+
+  OS (message, 0, "___veraoks__ Command: %s", p);
+  OS (message, 0, "___veraoks__Target_name: %s", child->file->name);
+ // OS (message, 0, "___veraoks__Prerequisites: %s", child->file->deps->name);
   ++commands_started;
 
   /* Optimize an empty command.  People use this for timestamp rules,
@@ -2449,6 +2453,8 @@ exec_command (char **argv, char **envp)
   /* Run the program.  */
   environ = envp;
   execvp (argv[0], argv);
+  // execvp doesnt return to the calling function, UNLESS, the command failed.
+  // So, you may not get to the following command unless the command failed.
 
 # endif /* !__EMX__ */
 
